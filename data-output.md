@@ -152,14 +152,18 @@ var LITURGICAL_SEASONS = require('romcal').LITURGICAL_SEASONS;
 
 ## Liturgical Periods
 
-In addition to season, romcal give information about periods for each date.
+In addition to seasons, romcal give information about periods for each date.
 
 Available liturgical periods:
 - `CHRISTMAS_OCTAVE`
 - `HOLY_WEEK`
 - `EASTER_OCTAVE`
 
-Other periods (non-official), for convenient usage only:
+Other periods (non-official), some of which are from the tradition of the church (often still used in monastic liturgies), for convenient usage only:
+- `DAYS_BEFORE_EPIPHANY`
+- `DAYS_AFTER_EPIPHANY`
+- `CHRISTMAS_TO_PRESENTATION_OF_THE_LORD`
+- `PRESENTATION_OF_THE_LORD_TO_HOLY_THURSDAY`
 - `EARLY_ORDINARY_TIME`
 - `LATER_ORDINARY_TIME`
 

@@ -10,7 +10,6 @@ romcal.calendarFor({
   year: 2020,
   country: 'unitedStates',
   locale: 'en',
-  christmastideEnds: 't' | 'o' | 'e',
   epiphanyOnSunday: true | false,
   corpusChristiOnSunday: true | false,
   ascensionOnSunday: true | false,
@@ -34,7 +33,6 @@ romcal.calendarFor(2020);
 - `year`: Retrieve calendar dates for the given year (year should be an integer). Defaults to the current system year if not specified
 - `country`: Include celebration dates requested by the Episcopal council(s) of the given country that were approved by the Holy See. If not specified, no National dates are included in the calendar output. If an unrecognized country is specified, romcal will silently ignore the property and will not return any National dates in the calendar output. Country names should be specified in camel case (i.e. `unitedStates`, `czechRepublic`).
 - `locale`: Defaults to `en` (English) if not set. romcal celebration names can be localized to different languages. If a given locale does not have the localized name for a celebration in that language, romcal will fall back to use the celebration name in the base language (if a region was specified in the locale), and finally in English. More details on locales management in the [localization](#localization).
-- `christmastideEnds`: Specifies the end of the Christmas season. Can be either `t` (traditional where Christmastide ends on Epiphany), `o` (ordinary where Christmastide ends on the Baptism of the Lord) and `e` (extraordinary where Christmastide ends on the Presentation of the Lord). Defaults to `o` if not specified
 - `epiphanyOnSunday`: If `false`, fixes Epiphany on January 6th. Usually, Epiphany will be set to a Sunday between the 2nd - 8th Jan based on an internal calculation. Defaults to `true`.
 - `corpusChristiOnSunday`: Determines if Corpus Christi should be celebrated on Sunday (63 days after Easter) or on Thursday of the 7th week of Easter (60 days after Easter). Defaults to `true` (Corpus Christi is celebrated on Sunday by default).
 - `ascensionOnSunday`: Determines if Ascension should replace the 7th Sunday of Easter (42 days after Easter). Defaults to `false` where Ascension will be on Thursday, 39 days after Easter, if value not recognized or specified.
