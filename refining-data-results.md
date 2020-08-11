@@ -58,7 +58,7 @@ import { Calendar } from 'romcal';
 Calendar.calendarFor({
   query: {
     group:
-      'days|months|daysByMonth|weeksByMonth|sundayCycles|ferialCycles|ranks|liturgicalSeasons|liturgicalColors|psalterWeeks',
+      'days|months|daysByMonth|weeksByMonth|sundayCycles|weekdayCycles|ranks|liturgicalSeasons|liturgicalColors|psalterWeeks',
   },
 });
 ```
@@ -75,7 +75,7 @@ let dates = Calendar.calendarFor();
 
 let groupedCalendar = Calendar.queryFor(dates, {
   group:
-    'days|months|daysByMonth|weeksByMonth|sundayCycles|ferialCycles|ranks|liturgicalSeasons|liturgicalColors|psalterWeeks',
+    'days|months|daysByMonth|weeksByMonth|sundayCycles|weekdayCycles|ranks|liturgicalSeasons|liturgicalColors|psalterWeeks',
 });
 ```
 

@@ -7,7 +7,7 @@
 - [Liturgical Periods](#liturgical-periods)
 - [Liturgical Cycles: Years and Weeks](#cycles)
   - [Sunday Cycle](#sunday-cycle)
-  - [Ferial (or Weekday) Cycle](#ferial-cycle)
+  - [Weekday Cycle](#weekday-cycle)
   - [Psalter Weeks](#psalter-weeks)
 - [Liturgical Colors](#liturgical-colors)
 - [Calendar Sources [deprecated]](#calendar-sources-deprecated)
@@ -30,7 +30,7 @@ romcal returns an array of liturgical date objects in the following structure
     periods: ['CHRISTMAS_OCTAVE'],
     cycles: {
       sundayCycle: 'YEAR_A',
-      ferialCycle: 'YEAR_2',
+      weekdayCycle: 'YEAR_2',
       psalterWeek: 'WEEK_2',
     },
     calendar: {
@@ -84,9 +84,9 @@ Each date in the liturgical calendar is assigned a rank which are:
 6. `MEMORIAL`
 7. `OPT_MEMORIAL`
 8. `COMMEMORATION`
-9. `FERIA`
+9. `WEEKDAY`
 
-Where the importance or rank of the celebration is in descending order (Solemnity being of highest importance and feria being the lowest).
+Where the importance or rank of the celebration is in descending order (Solemnity being of highest importance and weekday being the lowest).
 
 Types play an important role in determining which celebration should take precedence over another when two or more celebrations coincide on the same date. Certain celebration types will also have different liturgical colors applied to them.
 
@@ -194,7 +194,7 @@ Cycle information can be read via the `dates[idx].cycles` property in each date 
 ```typescript
 {
   sundayCycle: 'YEAR_A' | 'YEAR_B' | 'YEAR_C';
-  ferialCycle: 'YEAR_1' | 'YEAR_2';
+  weekdayCycle: 'YEAR_1' | 'YEAR_2';
   psalterWeek: 'WEEK_1' | 'WEEK_2' | 'WEEK_3' | 'WEEK_4';
 }
 ```
@@ -207,9 +207,9 @@ Sunday cycle are used mainly for sunday readings, and some solemnity.
 - `Year B` denoted by the key `YEAR_B`
 - `Year C` denoted by the key `YEAR_C`
 
-### Ferial Cycle
+### Weekday Cycle
 
-Ferial (or weekday) cycle are used mainly for weekdays readings.
+Weekday cycle are used mainly for weekdays readings.
 
 - `Year 1` or `Odd year` denoted by the key `YEAR_1`
 - `Year 2` or `Even year` denoted by the key `YEAR_2`
@@ -234,14 +234,14 @@ The cycle objects can be imported into consumer apps via:
 _ES6_
 
 ```javascript
-import { LITURGICAL_SUNDAY_CYCLES, LITURGICAL_FERIAL_CYCLES, PSALTER_WEEKS } from 'romcal';
+import { LITURGICAL_SUNDAY_CYCLES, LITURGICAL_WEEKDAY_CYCLES, PSALTER_WEEKS } from 'romcal';
 ```
 
 _CommonJS_
 
 ```javascript
 var LITURGICAL_SUNDAY_CYCLES = require('romcal').LITURGICAL_SUNDAY_CYCLES;
-var LITURGICAL_FERIAL_CYCLES = require('romcal').LITURGICAL_FERIAL_CYCLES;
+var LITURGICAL_WEEKDAY_CYCLES = require('romcal').LITURGICAL_WEEKDAY_CYCLES;
 var PSALTER_WEEKS = require('romcal').PSALTER_WEEKS;
 ```
 
