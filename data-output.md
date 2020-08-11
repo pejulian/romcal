@@ -48,6 +48,7 @@ romcal returns an array of liturgical date objects in the following structure
       endOfLiturgicalYear: '2020-11-28T00:00:00.000Z',
       easter: '2020-04-12T00:00:00.000Z',
     },
+    fromCalendar: 'general',
     metadata: {
       titles: [],
     },
@@ -67,6 +68,7 @@ romcal returns an array of liturgical date objects in the following structure
 - `periods`: Required: An array ofstring that identifies the liturgical period this celebration belongs to
 - `cycles`: The [liturgical cycle](#cycles) metadata of the celebration
 - `calendar`: The liturgical calendar metadata of the celebration
+- `fromCalendar`: Name of the calendar from which the celebration is defined
 - `metadata`: An object that holds additional information about the celebration, especially related to the celebration from the Sanctoral or Martyrology.
   - `titles`: An array of [titles](#titles) that may be assigned to this celebration
 
