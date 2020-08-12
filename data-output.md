@@ -6,6 +6,7 @@
 - [Liturgical Seasons](#liturgical-seasons)
 - [Liturgical Periods](#liturgical-periods)
 - [Liturgical Cycles: Years and Weeks](#cycles)
+  - [Celebration Cycle](#celebration-cycle)
   - [Sunday Cycle](#sunday-cycle)
   - [Weekday Cycle](#weekday-cycle)
   - [Psalter Weeks](#psalter-weeks)
@@ -187,23 +188,37 @@ var LITURGICAL_PERIODS = require('romcal').LITURGICAL_PERIODS;
 
 ## Liturgical Cycles: Years and Weeks <a name="cycles"></a>
 
-A liturgical year consists of cycles that determines which portions of scripture are to be read.
-And inside every liturgical year, another psalter week cycle will determine which psalms and prayer to follow for the liturgy of hours.
-
 Romcal automatically calculates the correct cycles for the given liturgical date.
 Cycle information can be read via the `dates[idx].cycles` property in each date element in the array that `calendarFor` returns:
 
 ```typescript
 {
+  celebrationCycle: 'TEMPORALE' | 'SANCTORALE';
   sundayCycle: 'YEAR_A' | 'YEAR_B' | 'YEAR_C';
   weekdayCycle: 'YEAR_1' | 'YEAR_2';
   psalterWeek: 'WEEK_1' | 'WEEK_2' | 'WEEK_3' | 'WEEK_4';
 }
 ```
 
+### Celebration Cycle
+
+All celebrations are taken from one of these two liturgical cycles:
+
+- `Temporale` denoted by the key `TEMPORALE`
+- `Sanctorale` denoted by the key `SANCTORALE`
+
+The [**Temporale**](https://en.wikipedia.org/wiki/Temporale) (or the **proper of time**, or the **proper of seasons**)
+consists of the [movable feasts](https://en.wikipedia.org/wiki/Moveable_feast) and celebrations, most of them keyed to Easter (which falls on a different Sunday every year),
+including Sundays and Weekdays and celebrations like Ascension, Pentecost, and so on.
+It's a cycle that traces the earthly life and the mystery of the Christ, and is deeply related to the liturgical seasons' continuity.
+
+The [**sanctorale**](https://en.wikipedia.org/wiki/Sanctorale) (or the **proper of saints**) consists of the fixed celebrations (on the civil year), celebrated on the very same date each year (no matter what the day of the week).
+It mainly contains the celebrations of the saints, and some other celebrations for the mystery of the church, including Christmas.
+
 ### Sunday Cycle
 
-Sunday cycle are used mainly for sunday readings, and some solemnity.
+A liturgical year consists of cycles that determines which portions of scripture are to be read.
+The Sunday cycle is used mainly for sunday readings, and some solemnity.
 
 - `Year A` denoted by the key `YEAR_A`
 - `Year B` denoted by the key `YEAR_B`
@@ -211,12 +226,15 @@ Sunday cycle are used mainly for sunday readings, and some solemnity.
 
 ### Weekday Cycle
 
-Weekday cycle are used mainly for weekdays readings.
+A liturgical year consists of cycles that determines which portions of scripture are to be read.
+The weekday cycle is used mainly for weekdays readings.
 
 - `Year 1` or `Odd year` denoted by the key `YEAR_1`
 - `Year 2` or `Even year` denoted by the key `YEAR_2`
 
 ### Psalter Weeks
+
+Inside every liturgical year, another psalter week cycle will determine which psalms and prayer to follow for the liturgy of hours.
 
 With the exception of the Easter Octave, each week in the liturgical year is assigned readings from the [Psalter](https://en.wikipedia.org/wiki/Roman_Breviary#The_Psalter).
 The psalter week cycle is composed of a repeated sequence of 4 four weeks. It restarts at the beginning of each season.
@@ -236,14 +254,15 @@ The cycle objects can be imported into consumer apps via:
 _ES6_
 
 ```javascript
-import { LITURGICAL_SUNDAY_CYCLES, LITURGICAL_WEEKDAY_CYCLES, PSALTER_WEEKS } from 'romcal';
+import { LITURGICAL_CYCLES, SUNDAY_CYCLES, WEEKDAY_CYCLES, PSALTER_WEEKS } from 'romcal';
 ```
 
 _CommonJS_
 
 ```javascript
-var LITURGICAL_SUNDAY_CYCLES = require('romcal').LITURGICAL_SUNDAY_CYCLES;
-var LITURGICAL_WEEKDAY_CYCLES = require('romcal').LITURGICAL_WEEKDAY_CYCLES;
+var LITURGICAL_CYCLES = require('romcal').LITURGICAL_CYCLES;
+var SUNDAY_CYCLES = require('romcal').SUNDAY_CYCLES;
+var WEEKDAY_CYCLES = require('romcal').WEEKDAY_CYCLES;
 var PSALTER_WEEKS = require('romcal').PSALTER_WEEKS;
 ```
 
