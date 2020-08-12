@@ -157,11 +157,13 @@ var LITURGICAL_SEASONS = require('romcal').LITURGICAL_SEASONS;
 In addition to seasons, romcal give information about periods for each date.
 
 Available liturgical periods:
+
 - `CHRISTMAS_OCTAVE`
 - `HOLY_WEEK`
 - `EASTER_OCTAVE`
 
 Other periods (non-official), some of which are from the tradition of the church (often still used in monastic liturgies), for convenient usage only:
+
 - `DAYS_BEFORE_EPIPHANY`
 - `DAYS_AFTER_EPIPHANY`
 - `CHRISTMAS_TO_PRESENTATION_OF_THE_LORD`
@@ -294,17 +296,17 @@ Calendar sources play an important role in how romcal manages coinciding dates (
 
 Represents a standard date in the liturgical year. Dates from this source build the basic structure of the liturgical calendar from the start of the liturgical year to its end.
 
-Dates from `src/lib/Seasons.js` will be assigned the source value `l`.
+Dates from `src/lib/Seasons.ts` will be assigned the source value `l`.
 
-The module responsible for generating the `liturgical` dates is `src/lib/Seasons.js`. _It is unlikely that this module will need customization or overriding of any kind._
+The module responsible for generating the `liturgical` dates is `src/lib/Seasons.ts`. _It is unlikely that this module will need customization or overriding of any kind._
 
 ### celebrations
 
 Represents central celebrations observed in the Roman Catholic rite. They take precedence and will replace coinciding dates from the `liturgical` calendar or `general` calendar.
 
-Dates from `src/lib/Celebrations.js` will be assigned the source value `c`.
+Dates from `src/lib/Celebrations.ts` will be assigned the source value `c`.
 
-The module responsible for generating `celebrations` is `src/lib/Celebrations.js`. _It is highly unlikely that this module will need customization or overriding of any kind._
+The module responsible for generating `celebrations` is `src/lib/Celebrations.ts`. _It is highly unlikely that this module will need customization or overriding of any kind._
 
 A prioritized date defined in the `national` calendar can replace a date in the `celebrations` calendar when:
 
@@ -349,9 +351,9 @@ The following are a list of dates defined in the `celebrations` calendar:
 
 Represents general celebrations throughout the liturgical year. Dates from the `general` calendar will override those from the `liturgical` calendar.
 
-Dates from `src/calendars/general.js` are assigned the source value `g`.
+Dates from `src/calendars/general.ts` are assigned the source value `g`.
 
-The module responsible for generating the `general` dates is `src/lib/Calendars/general.js`.
+The module responsible for generating the `general` dates is `src/lib/Calendars/general.ts`.
 
 `general` calendar dates will always be overwritten by `celebration` or `national` calendar dates even if they are prioritized. Celebrations in this calendar should reflect the General Roman Calendar, therefore there should be changes only when there is a change in the General Roman Calendar. When one wants to add, remove or modify a celebration that is celebrated only in a national calendar, they should make this changes in that particular calendar, not in the `general`.
 
@@ -365,8 +367,8 @@ A prioritized celebration in the `national` calendar takes precedence over celeb
 
 In situations when there are 2 celebrations from a `national` calendar that coincide on the same date, the one with the higher ranking celebration type will take precedence.
 
-A new `national` calendar for a country can be defined by creating a new `.js` file with the country name in upper case, lower case or camel case in the `src/lib/calendars` folder (i.e. `malaysia.mjs`). This new file will automatically be picked up by the module and will be used when the user supplies the matching key in the country argument in the `calendarFor` method.
+A new `national` calendar for a country can be defined by creating a new `.ts` file with the country name in upper case, lower case or camel case in the `src/lib/calendars` folder (i.e. `malaysia.mjs`). This new file will automatically be picked up by the module and will be used when the user supplies the matching key in the country argument in the `calendarFor` method.
 
-Dates from `src/calendars/<countryName>.js` will be assigned the source key `n`
+Dates from `src/calendars/<countryName>.ts` will be assigned the source key `n`
 
 See [Overriding dates](#overridingDates) for more examples.

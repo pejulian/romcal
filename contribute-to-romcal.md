@@ -25,8 +25,8 @@ git clone https://github.com/github-username/romcal.git
 ```
 
 3. By default your cloned repo is referenced as `origin`. It corresponds to your forked romcal repository.
-Then it's recommended to add a reference to the original romcal repository. This will allow you to get the latest code change and update your forked repo from the original romcal repo.
-It's recommended to call this new reference: `upstream`. You can do it by the following command:
+   Then it's recommended to add a reference to the original romcal repository. This will allow you to get the latest code change and update your forked repo from the original romcal repo.
+   It's recommended to call this new reference: `upstream`. You can do it by the following command:
 
 ```bash
 # Using SSH URL
@@ -68,7 +68,7 @@ Instead of building everytime the codebase to test your code, you might be inter
 import romcal from './romcal/src';
 
 (async () => {
-  let dates = await romcal.calendarFor({
+  const dates = await romcal.calendarFor({
     country: 'france',
     year: 2020,
     locale: 'fr',
@@ -79,6 +79,7 @@ import romcal from './romcal/src';
 ```
 
 You can call your `sample-test-file.ts` directly from the bash (e.g. in the romcal directory):
+
 ```bash
 node -r ts-node/register -r tsconfig-paths/register ../sample-test-file.ts
 ```

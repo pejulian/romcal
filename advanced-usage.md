@@ -10,7 +10,7 @@
 
 ## Overriding dates
 
-romcal is designed with extensibility in mind to cater for unique scenarios that are common in the liturgical calendar.
+romcal is designed with extensibility in mind, to cater for unique scenarios that are common in the liturgical calendar.
 
 ### Overriding a date by its calendar source [deprecated]
 
@@ -23,11 +23,11 @@ Prioritizing a date allows it to:
 - Override a higher ranking `type` date object with the same key
 - Prevent it from being overridden by other coinciding dates
 
-A date can be prioritized by adding `prioritized`: `true` to the `data` object in the given date object. See `src/lib/Celebrations.js` for more examples.
+A date can be prioritized by adding `prioritized`: `true` to the `data` object in the given date object. See `src/lib/Celebrations.ts` for more examples.
 
-All dates in `src/lib/Celebrations.js` (Christmas, Easter) are prioritized as they must override any other date in the liturgical calendar and cannot be overridden by any other coinciding date regardless of rank **unless** the coinciding date is itself prioritized
+All dates in `src/lib/Celebrations.ts` (Christmas, Easter) are prioritized as they must override any other date in the liturgical calendar and cannot be overridden by any other coinciding date regardless of rank **unless** the coinciding date is itself prioritized
 
-For example, `allSaints` in `src/lib/Celebrations.js` can be overridden by `allSaints` in `src/calendars/england.js`) because the entry in that `national` calendar was set with `prioritized`: `true`.
+For example, `allSaints` in `src/lib/Celebrations.ts` can be overridden by `allSaints` in `src/calendars/england.ts`) because the entry in that `national` calendar was set with `prioritized`: `true`.
 
 > :warning: If a coinciding date’s source is from the `celebration` or `national` calendars, _but_ the prioritized date is defined in the `general` calendar, it _will still be_ overridden by the coinciding date because `celebration` and `national` calendar sources have higher precedence (see [Overriding a date by its calendar source](#overridingBySource) section).
 
@@ -35,7 +35,7 @@ For example, `allSaints` in `src/lib/Celebrations.js` can be overridden by `allS
 
 In most countries, All Saints and All Souls are always celebrated on the 1st and 2nd of November respectively. However, in England and Wales, if All Saints (1 November) falls on a Saturday, it is transferred to the Sunday and All Souls is transferred to Monday 3rd November.
 
-romcal implements this unique difference by overriding the `allSouls` and `allSaints` celebrations in the national calendars of `src/calendars/england.js` and `src/calendars/wales.js` (the original definition was in `src/calendars/general.js`). The overriding dates in these calendars define a IIFE callback function for the `date` property that holds logic for determining if the date should be moved.
+romcal implements this unique difference by overriding the `allSouls` and `allSaints` celebrations in the national calendars of `src/calendars/england.ts` and `src/calendars/wales.ts` (the original definition was in `src/calendars/general.ts`). The overriding dates in these calendars define a IIFE callback function for the `date` property that holds logic for determining if the date should be moved.
 
 Since national calendar dates have higher precedence than general calendar dates, the national date definitions for All Saints and All Souls will override the ones in the general calendar.
 
@@ -59,7 +59,7 @@ romcal enables this flexibility via the `drop` key.
 
 When defined, the `drop` key should contain a `boolean` value of `true` to indicate that the given celebration should be _removed_ from the calendar output.
 
-Usually, this means excluding a celebration defined in `src/calendars/general.js`. The construct would be defined in the relevant `national` calendar and look like this:
+Usually, this means excluding a celebration defined in `src/calendars/general.ts`. The construct would be defined in the relevant `national` calendar and look like this:
 
 ```javascript
 {
@@ -87,4 +87,3 @@ Utils.localize({
 - `key`: A dot delimited string representing the locale key (`celebrations.christmas`)
 - `week`: A non-zero integer for weeks which will be converted to its ordinal representation (1st Sunday of Advent)
 - `count`: A non-zero integer for days which will be converted to its ordinal representation (2nd Sunday of Christmas)
-
