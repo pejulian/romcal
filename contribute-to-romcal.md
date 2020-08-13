@@ -107,7 +107,7 @@ npm run test:watch
 - For testing a single file during development,
 
 ```bash
-npm run test -t ./src/utils/object.test.ts
+npm run test -t ./src/utils/object/object.test.ts
 ```
 
 _pass the `-t` flag and the path of the file_
