@@ -95,6 +95,10 @@ Determines the scope of calendar output. The scope can be specified either as:
 
 Defaults to `gregorian`.
 
+Note that a `liturgical` year is always straddling two `gregorian` years.
+In this situation, the `year` property always correspond with the beginning of the liturgical year.
+So if you aim to fetch a liturgical calendar for `2030`, you will end up with celebration dates from `December 1 of 2030` to `November 29 of 2031`.
+
 ### `query`
 
 A nested query object which filters the dates according to the given criteria.
