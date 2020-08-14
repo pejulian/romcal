@@ -90,10 +90,10 @@ Defaults to `false`.
 
 Determines the scope of calendar output. The scope can be specified either as:
 
-- `gregorian`: the civil year for the majority of countries - `January 1` to `December 31`.
-- `liturgical`: the liturgical calendar year - `1st Sunday of Advent` to the `last Saturday or Ordinary Time` (i.e. the last day before the following `1st Sunday of Advent` of the next liturgical year).
+- `gregorian`: i.e. the [civil year](https://en.wikipedia.org/wiki/Civil_calendar) for the majority of countries - `January 1` to `December 31`.
+- `liturgical`: the liturgical year - `1st Sunday of Advent` to the `last Saturday or Ordinary Time` (i.e. the last day before the following `1st Sunday of Advent` of the next liturgical year).
 
-Defaults to `gregorian` if not specified.
+Defaults to `gregorian`.
 
 ### `query`
 
