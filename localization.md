@@ -6,13 +6,15 @@ Celebration names in romcal can be localized to any language that is already sup
 
 Locales are stored as `.ts` files in the `src/locales` directory.
 
-If the given locale contains a region (the second group of letters after a hyphen, e.g. for `fr-CA`, the `CA` represents the region), a base language will be set as a locale fallback (`fr` in our example).
+If the given locale contains a region (the second group of letters after a hyphen, e.g. for `fr-ca`, the `ca` represents the region), a base language will be set as a locale fallback (`fr` in our example).
 
 A locale can have one or two fallbacks. `en` is the default locale in romcal and always serves as the last fallback.
 
 Fallbacks are used when a string in the specified locale is not defined in the `src/locales` directory or the given key does not exist in any of previous the locale(s).
 
-For example, a given locale containing region (like `fr-CA`) will gracefully fall back to `fr` if a localization key isn’t in `fr-CA`, or if `fr-CA.ts` doesn’t exits in the `src/locales` directory. In the end, it always falls back to `en`, which is the default language in romcal. This should be used also to make the localization files smaller, i.e. when the locale containing region has a particular string translated the same way as the main locale (e.g. `fr`), we should not localise that particular string in the locale containing region.
+For example, a given locale containing region (like `fr-ca`) will gracefully fall back to `fr` if a localization key isn’t in `fr-ca`, or if `fr-ca.ts` doesn’t exits in the `src/locales` directory.
+In the end, it always falls back to `en`, which is the default language in romcal.
+This should be used also to make the localization files smaller, i.e. when the locale containing region has a particular string translated the same way as the main locale (e.g. `fr`), we should not localise that particular string in the locale containing region.
 
 The structure of the locale file is typically like so:
 
@@ -33,6 +35,6 @@ The structure of the locale file is typically like so:
 
 The first 7 objects define locale keys used by `src/lib/Seasons.ts` when generating liturgical dates.
 
-The `celebrations`, `general` and `national` objects will hold localizations for `src/lib/Celebrations.ts`, `src/calendars/general.ts` and `src/calendars/<country>.ts` respectively where the celebrations `key` is used as the identifier for localization purposes.
+The `celebrations` and `sanctoral` objects will hold localizations for `src/lib/Celebrations.ts`, `src/calendars/general.ts` and `src/calendars/<country>.ts` respectively where the celebrations `key` is used as the identifier for localization purposes.
 
 See the end of these files to see the function that localizes the dates according to their keys.
