@@ -24,6 +24,7 @@ romcal returns an array of liturgical date objects in the following structure
     name: 'Mary, Mother of God',
     date: '2020-01-01T00:00:00.000Z',
     rank: 'SOLEMNITY',
+    rankName: 'Solemnity',
     prioritized: false,
     liturgicalColors: ['WHITE'],
     seasons: ['CHRISTMASTIDE'],
