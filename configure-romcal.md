@@ -2,11 +2,11 @@
 
 ## Usage
 
-Invoke the `calendarFor` method to retrieve an array of liturgical dates and celebrations in the Roman Calendar.
+Invoke the `calendarFor` method to retrieve an `Array` of `LiturgicalDay` objects in the Roman Calendar (by default: one object per each day of the year).
 This method accepts an object of configuration properties to obtain customized output.
 
 ```javascript
-romcal.calendarFor({
+Romcal.calendarFor({
   year: 2020,
   country: 'unitedStates',
   locale: 'en',
@@ -22,10 +22,10 @@ romcal can be invoked without parameters or via shorthand properties like so:
 
 ```javascript
 // Get calendar year dates (1st Jan - 31st Dec) for the current year
-romcal.calendarFor();
+Romcal.calendarFor();
 
 // Get calendar year dates for the specified year
-romcal.calendarFor(2020);
+Romcal.calendarFor(2020);
 ```
 
 ## Configuration Options
