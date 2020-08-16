@@ -8,13 +8,13 @@ This method accepts an object of configuration properties to obtain customized o
 ```javascript
 Romcal.calendarFor({
   year: 2020,
+  scope: 'gregorian' | 'liturgical',
   country: 'unitedStates',
   locale: 'en',
   epiphanyOnSunday: true | false,
   corpusChristiOnSunday: true | false,
   ascensionOnSunday: true | false,
   outputOptionalMemorials: true | false,
-  scope: 'gregorian' | 'liturgical',
 });
 ```
 
@@ -32,8 +32,25 @@ Romcal.calendarFor(2020);
 
 ### `year`
 
-Retrieve calendar dates for the given year (year should be an integer).
+An `integer` that defines the calendar year to compute.
+
+Note: if the output `scope` is defined as a `liturgical` calendar, the `year` property refer to the main period of the liturgical calendar.
+See just below for more details.
+
 Defaults to the current system year if not specified.
+
+### `scope`
+
+Defines the scope of calendar output. The scope can be specified either as:
+
+- `gregorian`: i.e. the [civil year](https://en.wikipedia.org/wiki/Civil_calendar) for the majority of countries - `January 1` to `December 31`.
+- `liturgical`: the liturgical year - `1st Sunday of Advent` to the `last Saturday or Ordinary Time` (i.e. the last day before the following `1st Sunday of Advent` of the next liturgical year).
+
+Defaults to `gregorian`.
+
+Note that a `liturgical` year is always straddling two `gregorian` years.
+In this situation, the `year` property always refer to the main part of the liturgical year.
+So if you aim to fetch a liturgical calendar for `2030`, you will end up with liturgical days from `December 2 of 2029` to `November 30 of 2030`.
 
 ### `country`
 
@@ -85,19 +102,6 @@ Or if provided, defaults to the setting defined in the particular calendar you a
 - `false`: romcal output strictly one celebration per day, according to the calendar definitions and the missal rules. So you will get exactly 365 celebrations within a gregorian scope (366 on leap years).
 
 Defaults to `false`.
-
-### `scope`
-
-Determines the scope of calendar output. The scope can be specified either as:
-
-- `gregorian`: i.e. the [civil year](https://en.wikipedia.org/wiki/Civil_calendar) for the majority of countries - `January 1` to `December 31`.
-- `liturgical`: the liturgical year - `1st Sunday of Advent` to the `last Saturday or Ordinary Time` (i.e. the last day before the following `1st Sunday of Advent` of the next liturgical year).
-
-Defaults to `gregorian`.
-
-Note that a `liturgical` year is always straddling two `gregorian` years.
-In this situation, the `year` property always correspond with the beginning of the liturgical year.
-So if you aim to fetch a liturgical calendar for `2030`, you will end up with celebration dates from `December 1 of 2030` to `November 29 of 2031`.
 
 ### `query`
 
