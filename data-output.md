@@ -60,18 +60,18 @@ romcal returns an array of liturgical date objects in the following structure
 ```
 
 - `key`: A camel case string which serves as a unique identifier for the celebration.
-- `name`: The [localisable name](localization.md) of the celebration
+- `name`: The [localizable name](localization.md) of the celebration
 - `date`: Date of the celebration as a ISO8601 string
 - `rank`: A key representing the [celebration rank](#celebration-ranks)
-- `prioritized`: A optional boolean that when true, gives the celebration higher priority over another coinciding celebration even though that celebration has a higher ranking type. This flag should be used with caution.
+- `prioritized`: A optional boolean that when true, gives the celebration higher priority over another coinciding celebration even though that celebration has a higher-ranking type. This flag should be used with caution.
 - `liturgicalColors`: The [liturgical color(s)](#liturgical-colors) assigned for this celebration (usually follows the liturgical season but may defer if this celebration is a solemnity, feast or memorial)
 - `seasons`: Required: An array of string that identifies the liturgical season this celebration belongs to
 - `seasonNames`: Required: An array of localized string that identifies the liturgical season this celebration belongs to
-- `periods`: Required: An array ofstring that identifies the liturgical period this celebration belongs to
+- `periods`: Required: An array of string that identifies the liturgical period this celebration belongs to
 - `cycles`: The [liturgical cycle](#cycles) metadata of the celebration
 - `calendar`: The liturgical calendar metadata of the celebration
 - `fromCalendar`: Name of the calendar from which the celebration is defined
-- `metadata`: An object that holds additional information about the celebration, especially related to the celebration from the Sanctoral or Martyrology.
+- `metadata`: An object that holds additional information about the liturgical day, especially when it refers to a celebration coming from the Sanctoral or Martyrology.
   - `titles`: An array of [titles](#titles) that may be assigned to this celebration
 
 ## Celebration Ranks
@@ -88,7 +88,7 @@ Each date in the liturgical calendar is assigned a rank which are:
 8. `COMMEMORATION`
 9. `WEEKDAY`
 
-Where the importance or rank of the celebration is in descending order (Solemnity being of highest importance and weekday being the lowest).
+Where the importance or rank of the celebration is in descending order (solemnity being of highest importance and weekday being the lowest).
 
 Types play an important role in determining which celebration should take precedence over another when two or more celebrations coincide on the same date. Certain celebration types will also have different liturgical colors applied to them.
 
@@ -219,7 +219,7 @@ It mainly contains the celebrations of the saints, and some other celebrations f
 ### Sunday Cycle
 
 A liturgical year consists of cycles that determines which portions of scripture are to be read.
-The Sunday cycle is used mainly for sunday readings, and some solemnity.
+The Sunday cycle is used mainly for Sunday readings and some solemnity.
 
 - `Year A` denoted by the key `YEAR_A`
 - `Year B` denoted by the key `YEAR_B`
@@ -228,7 +228,7 @@ The Sunday cycle is used mainly for sunday readings, and some solemnity.
 ### Weekday Cycle
 
 A liturgical year consists of cycles that determines which portions of scripture are to be read.
-The weekday cycle is used mainly for weekdays readings.
+The weekday cycle is used mainly for weekday readings.
 
 - `Year 1` or `Odd year` denoted by the key `YEAR_1`
 - `Year 2` or `Even year` denoted by the key `YEAR_2`
@@ -269,9 +269,9 @@ var PSALTER_WEEKS = require('romcal').PSALTER_WEEKS;
 
 ## Liturgical Colors
 
-[Liturgical colours are those specific colours used for vestments and hangings within the context of Christian liturgy. The symbolism of violet, white, green, red, gold, black, rose and other colours may serve to underline moods appropriate to a season of the liturgical year or may highlight a special occasion.](https://en.wikipedia.org/wiki/Liturgical_colours)
+[Liturgical colors are those specific colors used for vestments and hangings within the context of Christian liturgy. The symbolism of violet, white, green, red, gold, black, rose and other colors may serve to underline moods appropriate to a season of the liturgical year or may highlight a special occasion.](https://en.wikipedia.org/wiki/Liturgical_colours)
 
-romcal defines various liturgical colors in which are:
+romcal defines various liturgical colors which are:
 
 - `BLACK`
 - `GOLD`
@@ -385,7 +385,7 @@ Represents specific liturgical dates that were approved for use by the Holy See 
 
 A prioritized celebration in the `national` calendar takes precedence over celebrations in `general`, `celebrations` and `liturgical` calendars. As such, this marker should be used with caution as it may cause national events to override important celebrations that should not be overridden.
 
-In situations when there are 2 celebrations from a `national` calendar that coincide on the same date, the one with the higher ranking celebration type will take precedence.
+In situations when there are 2 celebrations from a `national` calendar that coincide on the same date, the one with the higher-ranking celebration type will take precedence.
 
 A new `national` calendar for a country can be defined by creating a new `.ts` file with the country name in upper case, lower case or camel case in the `src/lib/calendars` folder (i.e. `malaysia.mjs`). This new file will automatically be picked up by the module and will be used when the user supplies the matching key in the country argument in the `calendarFor` method.
 

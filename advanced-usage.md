@@ -25,7 +25,7 @@ Prioritizing a date allows it to:
 
 A date can be prioritized by adding `prioritized`: `true` to the `data` object in the given date object. See `src/lib/Celebrations.ts` for more examples.
 
-All dates in `src/lib/Celebrations.ts` (Christmas, Easter) are prioritized as they must override any other date in the liturgical calendar and cannot be overridden by any other coinciding date regardless of rank **unless** the coinciding date is itself prioritized
+All dates in `src/lib/Celebrations.ts` (Christmas, Easter) are prioritized as they must override any other date in the liturgical calendar and cannot be overridden by any other coinciding date regardless of rank **unless** the coinciding date is itself prioritized.
 
 For example, `allSaints` in `src/lib/Celebrations.ts` can be overridden by `allSaints` in `src/calendars/england.ts`) because the entry in that `national` calendar was set with `prioritized`: `true`.
 

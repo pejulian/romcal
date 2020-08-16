@@ -1,6 +1,6 @@
 # Install, Build, Run and Test romcal locally
 
-This section describes how get and run the romcal sourcecode in your machine, and how to contribute to this project.
+This section describes how to run the romcal source code in your machine, and how to contribute to this project.
 You might also be interested in reading the general [contribution guide](../CONTRIBUTING.md).
 
 - [Retrieve the codebase](#retrieve-the-codebase)
@@ -51,7 +51,7 @@ npm install
 
 The romcal codebase is actually the same for backend and frontend usage.
 But when romcal is built, two packages are generated in the `/dist` folder.
-To make it working on the frontend side, the frontend library is wrapped and built thanks to `webpack`.
+To make it work on the frontend side, the frontend library is wrapped and built thanks to `webpack`.
 
 Build the project each time you are getting fresh code or updating the codebase:
 
@@ -61,7 +61,7 @@ npm run build
 
 ## Run
 
-Instead of building everytime the codebase to test your code, you might be interested to run directly the TypeScript codebase and test it in the Node.js ecosystem.
+Instead of building every time the codebase to test your code, you might be interested to run directly the TypeScript codebase and test it in the Node.js ecosystem.
 
 ```javascript
 // sample-test-file.ts in the parent directory of romcal (outside the codebase)

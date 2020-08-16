@@ -49,12 +49,12 @@ Defines the scope of calendar output. The scope can be specified either as:
 Defaults to `gregorian`.
 
 Note that a `liturgical` year is always straddling two `gregorian` years.
-In this situation, the `year` property always refer to the main part of the liturgical year.
+In this situation, the `year` property always refers to the main part of the liturgical year.
 So if you aim to fetch a liturgical calendar for `2030`, you will end up with liturgical days from `December 2 of 2029` to `November 30 of 2030`.
 
 ### `country`
 
-Include celebration dates requested by the Episcopal council(s) of the given country that were approved by the Holy See.
+Include celebration dates requested by the Episcopal Council(s) of the given country that were approved by the Holy See.
 If not specified, no National dates are included in the calendar output.
 If an unrecognized country is specified, romcal will silently ignore the property and will not return any National dates in the calendar output.
 Country names should be specified in camel case (i.e. `unitedStates`, `czechRepublic`).
@@ -99,7 +99,7 @@ Or if provided, defaults to the setting defined in the particular calendar you a
 ### `outputOptionalMemorials`
 
 - `true`: in the romcal output, also includes optional celebrations and commemorations that could be celebrated on each day (in addition to the weekday).
-- `false`: romcal output strictly one celebration per day, according to the calendar definitions and the missal rules. So you will get exactly 365 celebrations within a gregorian scope (366 on leap years).
+- `false`: romcal output strictly one celebration per day, according to the calendar definitions and the missal rules. So you will get exactly 365 celebrations within a Gregorian scope (366 in leap years).
 
 Defaults to `false`.
 

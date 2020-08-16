@@ -1,7 +1,7 @@
 # Manipulate and refining data results
 
 - [Queries](#queries)
-  - [Filtering calendar output by month of year or day of week](#filter-by-month-or-day)
+  - [Filtering calendar output by months of year or day of week](#filter-by-months-or-day)
   - [Grouping calendar output by criteria](#grouping-by-criteria)
   - [Filtering calendar output by celebration title metadata](#filter-by-title)
   - [Filtering calendar output by celebration title metadata](#filter-by-title)
@@ -14,7 +14,7 @@ romcal can generate filtered liturgical or calendar year dates by:
 - passing an additional query object along with the initial configuration object to the `calendarFor` method, or
 - invoking the `queryFor` method and supplying an array of dates generated from `calendarFor` and a query object
 
-### Filtering calendar output by month of year or day of week <a name="filter-by-month-or-day"></a>
+### Filtering calendar output by months of year or day of week <a name="filter-by-months-or-day"></a>
 
 ```javascript
 import { Calendar } from 'romcal';
