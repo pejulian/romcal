@@ -1,12 +1,18 @@
-# Configure romcal
+# General use of romcal
 
-## Usage
+- [Get calendar data](#get-calendar-data)
+- [Configuration options](#configuration-options)
+- [Refines data results](#refines-data-results)
+  - [Filter results by criteria](#filter-results-by-criteria)
+  - [Group results by criteria](#group-results-by-criteria)
+
+## Get calendar data
 
 Invoke the `calendarFor` method to retrieve an `Array` of `LiturgicalDay` objects in the Roman Calendar (by default: one object per each day of the year).
 This method accepts an object of configuration properties to obtain customized output.
 
 ```javascript
-Romcal.calendarFor({
+CalendarBuilder.calendarFor({
   year: 2020,
   scope: 'gregorian' | 'liturgical',
   country: 'unitedStates',
@@ -22,13 +28,29 @@ romcal can be invoked without parameters or via shorthand properties like so:
 
 ```javascript
 // Get calendar year dates (1st Jan - 31st Dec) for the current year
-Romcal.calendarFor();
+CalendarBuilder.calendarFor();
 
 // Get calendar year dates for the specified year
-Romcal.calendarFor(2020);
+CalendarBuilder.calendarFor(2020);
 ```
 
-## Configuration Options
+Then, the `calendarFor`method will produce an `Array` of `LiturgicalDay` objects (by default, one object per each day of the year, except if you specified to also output optional memorials).
+For further information: :books: [Output data and JSON schema](docs/data-output.md).
+
+Note that romcal always produce data **asynchronously**:
+
+```javascript
+// Access data using a Promise
+Romcal.calendarFor({ year: 2020, locale: 'en' }).then(function(myCalendar1) {
+  console.log(myCalendar1)
+});
+
+// Or access data using async/await
+const myCalendar2 = await Romcal.calendarFor({ year: 2020, locale: 'en' });
+console.log(myCalendar2);
+```
+
+## Configuration options
 
 ### `year`
 
@@ -64,7 +86,7 @@ Country names should be specified in camel case (i.e. `unitedStates`, `czechRepu
 Defaults to `en` (English) if not set.
 romcal celebration names can be localized to different languages.
 If a given locale does not have the localized name for a celebration in that language, romcal will fall back to use the celebration name in the base language (if a region was specified in the locale), and finally in English.
-More details on locales management in the [localization](#localization).
+More details on locales management in the :books: [localization page](./localization.md).
 
 ### `epiphanyOnSunday`
 
@@ -103,7 +125,89 @@ Or if provided, defaults to the setting defined in the particular calendar you a
 
 Defaults to `false`.
 
-### `query`
+## Refines data results
 
-A nested query object which filters the dates according to the given criteria.
-For more details on how to use queries, see [Queries](#queries) section.
+### Filter results by criteria
+
+Remember that romcal always compute data for a whole year (Gregorian or liturgical).
+Technically, romcal will produce an `Array` of `LiturgicalDay` objects (by default, one object per each day of the year, except if you specified to also output optional memorials).
+
+romcal doesn't provide any specific tools to refine the results.
+JavaScript already offer all the tooling to filter a collection of `LiturgicalDay` objects by any specific criteria.
+
+Some examples below:
+
+```javascript
+Romcal.calendarFor({ year: 2020, locale: 'en' }).then((calendar) => {
+
+  // Get all Sunday occurring during the year
+  // (Sunday = 0 ... Saturday = 6)
+  var allSundays = calendar.filter(day => new Date(day.date).getUTCDay() === 0);
+
+  // Get all liturgical days for February
+  // (January = 0 ... December = 11)
+  var february = calendar.filter(day => new Date(day.date).getUTCMonth() === 1);
+
+  // Get all Feasts occurring during the year
+  var allFeasts = calendar.filter(day => day.rank === 'FEAST');
+
+  // Get all liturgical days that commemorate a martyr
+  var martyrs = calendar.filter(day => day.metadata.titles.includes('MARTYR'));
+});
+```
+
+### Group results by criteria
+
+romcal offer a convenient way to group data by various criteria. The supported criteria are:
+
+`days` | `months` | `daysByMonth` | `weeksByMonth` | `sundayCycles` | `weekdayCycles` | `ranks` | `liturgicalSeasons` | `liturgicalColors` | `psalterWeeks`
+
+For example:
+```javascript
+Romcal.calendarFor({ year: 2020, locale: 'en' }).then((calendar) => {
+  const byRanks = calendar.groupBy('ranks');
+  console.log(byRanks);
+});
+```
+Will produce this dictionary of array:
+```json5
+{
+  WEEKDAY: [...],
+  SUNDAY: [...],
+  MEMORIAL: [...],
+  FEAST: [...],
+  SOLEMNITY: [...],
+  // ...
+}
+```
+
+For any custom needs, we recommend to use the native `.reduce` method on `Array` to get similar results.
+
+For example below, grouping by `rank`:
+```javascript
+// Using JavaScript and a Promise
+
+Romcal.calendarFor({ year: 2020, locale: 'en' }).then((calendar) => {
+  const byRanks = calendar.reduce((obj, item) => {
+    const key = item.rank; // <-- the property by which you want to group liturgical days
+    (obj[criteria] = obj[criteria] || new RomcalCalendar()).push(item);
+    return obj;
+  }, {});
+
+  console.log(byRanks);
+});
+```
+
+```typescript
+// Using TypeScript and async/await
+
+const calendar = await Romcal.calendarFor({ year: 2020, locale: 'en' });
+const byRanks = calendar.reduce((obj: Dictionary<RomcalCalendar>, item: LiturgicalDay) => {
+  const criteria = item.rank; // <-- the property by which you want to group liturgical days
+  (obj[criteria] = obj[criteria] || new RomcalCalendar()).push(item);
+  return obj;
+}, {});
+
+console.log(byRanks);
+```
+
