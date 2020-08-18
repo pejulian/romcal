@@ -1,18 +1,23 @@
 # General use of romcal
 
 - [Get calendar data](#get-calendar-data)
+- [Get a specific liturgical date](#get-a-specific-liturgical-date)
 - [Configuration options](#configuration-options)
-- [Refines data results](#refines-data-results)
-  - [Filter results by criteria](#filter-results-by-criteria)
-  - [Group results by criteria](#group-results-by-criteria)
+- [Refines and filter results by criteria](#refines-and-filter-results-by-criteria)
+  - [Filter by any criteria](#filter-by-any-criteria)
+  - [Filter by date](#filter-by-date)
+  - [Other utility methods on calendar results](#other-utility-methods-on-calendar-results)
+- [Group results by criteria](#group-results-by-criteria)
 
 ## Get calendar data
 
-Invoke the `calendarFor` method to retrieve an `Array` of `LiturgicalDay` objects in the Roman Calendar (by default: one object per each day of the year).
-This method accepts an object of configuration properties to obtain customized output.
+Invoke the `.calendarFor` method to retrieve an `Array` of `LiturgicalDay` objects in the Roman Calendar (by default: one object per each day of the year).
+This method accepts an optional object of configuration properties to obtain customized output.
 
 ```javascript
-CalendarBuilder.calendarFor({
+// Type: async calendarFor(options?: BaseRomcalConfig): Promise<RomcalCalendar>
+
+Romcal.calendarFor({
   year: 2020,
   scope: 'gregorian' | 'liturgical',
   country: 'unitedStates',
@@ -28,10 +33,10 @@ romcal can be invoked without parameters or via shorthand properties like so:
 
 ```javascript
 // Get calendar year dates (1st Jan - 31st Dec) for the current year
-CalendarBuilder.calendarFor();
+Romcal.calendarFor();
 
 // Get calendar year dates for the specified year
-CalendarBuilder.calendarFor(2020);
+Romcal.calendarFor(2020);
 ```
 
 Then, the `calendarFor`method will produce an `Array` of `LiturgicalDay` objects (by default, one object per each day of the year, except if you specified to also output optional memorials).
@@ -41,14 +46,60 @@ Note that romcal always produce data **asynchronously**:
 
 ```javascript
 // Access data using a Promise
-Romcal.calendarFor({ year: 2020, locale: 'en' }).then(function(myCalendar1) {
-  console.log(myCalendar1)
+Romcal.calendarFor({ year: 2020, locale: 'en' }).then(function (myCalendar1) {
+  console.log(myCalendar1);
 });
 
 // Or access data using async/await
 const myCalendar2 = await Romcal.calendarFor({ year: 2020, locale: 'en' });
 console.log(myCalendar2);
 ```
+
+## Get a specific liturgical date
+
+Invoke the `.liturgicalDayFor` method to retrieve the data of a specific liturgical day.
+This method accepts a first `Date` object parameter, and an optional object of configuration properties to obtain customized output.
+
+```javascript
+// Type: async liturgicalDayFor(date: Date, options?: BaseRomcalConfigWithoutYear): Promise<RomcalCalendar>
+
+Romcal.liturgicalDayFor(date, {
+  country: 'unitedStates',
+  locale: 'en',
+  epiphanyOnSunday: true | false,
+  corpusChristiOnSunday: true | false,
+  ascensionOnSunday: true | false,
+  outputOptionalMemorials: true | false,
+});
+```
+
+This returns an `Array` containing the `LiturgicalDay` object, that match the provided `date` parameter.
+In case the `outputOptionalMemorials` option is set to `true`, romcal will also output optional memorials that could be available the same date.
+
+e.g. to obtain today's liturgical day:
+
+```javascript
+// Using a Promise
+Romcal.liturgicalDayFor(new Date(), {
+  country: 'france',
+  locale: 'fr',
+}).then(function (today) {
+  console.log(today);
+});
+
+// Or using async/await
+const today = async Romcal.liturgicalDayFor(new Date(), {
+  country: 'france',
+  locale: 'fr',
+});
+console.log(today);
+```
+
+Note that under the hood, romcal always compute data for a whole liturgical year.
+This is necessary to ensure that the right liturgical day is computed for every date:
+each liturgical day is depending on the proper of seasons or the sanctorale, and might be defined according to each other (including all [moveable feast](https://en.wikipedia.org/wiki/Moveable_feast)).
+
+:warning: For performance reasons, if you need to retrieve data from different dates in the same year, it will be highly recommended to compute once a calendar (using the `.calendarFor` method), and then use the filtering methods to get all the desired dates.
 
 ## Configuration options
 
@@ -125,58 +176,170 @@ Or if provided, defaults to the setting defined in the particular calendar you a
 
 Defaults to `false`.
 
-## Refines data results
+## Refines and filter results by criteria
 
-### Filter results by criteria
+Under the hood, romcal always compute data for a whole liturgical year.
+This is necessary to ensure that the right liturgical day is computed for every date:
+each liturgical day is depending on the proper of seasons or the sanctorale, and might be defined according to each other (including all [moveable feast](https://en.wikipedia.org/wiki/Moveable_feast)).
 
-Remember that romcal always compute data for a whole year (Gregorian or liturgical).
-Technically, romcal will produce an `Array` of `LiturgicalDay` objects (by default, one object per each day of the year, except if you specified to also output optional memorials).
+Then, all liturgical days are gathered into a calendar object, and exported within the scope of a Gregorian or a liturgical year.
+It produces a `RomcalCalendar` object, which is an `Array` of `LiturgicalDay` objects (by default, one object per each day of the year, except if you specified to also output optional memorials).
 
-romcal doesn't provide any specific tools to refine the results.
-JavaScript already offer all the tooling to filter a collection of `LiturgicalDay` objects by any specific criteria.
+### Filter by any criteria
 
-Some examples below:
+JavaScript already offers all the tooling to filter an array of objects, and by any specific criteria. Some examples below:
 
 ```javascript
 Romcal.calendarFor({ year: 2020, locale: 'en' }).then((calendar) => {
-
   // Get all Sunday occurring during the year
   // (Sunday = 0 ... Saturday = 6)
-  var allSundays = calendar.filter(day => new Date(day.date).getUTCDay() === 0);
+  var allSundays = calendar.filter((day) => new Date(day.date).getUTCDay() === 0);
 
-  // Get all liturgical days for February
+  // Get all liturgical days in February
   // (January = 0 ... December = 11)
-  var february = calendar.filter(day => new Date(day.date).getUTCMonth() === 1);
+  var february = calendar.filter((day) => new Date(day.date).getUTCMonth() === 1);
 
   // Get all Feasts occurring during the year
-  var allFeasts = calendar.filter(day => day.rank === 'FEAST');
+  var allFeasts = calendar.filter((day) => day.rank === 'FEAST');
 
   // Get all liturgical days that commemorate a martyr
-  var martyrs = calendar.filter(day => day.metadata.titles.includes('MARTYR'));
+  var martyrs = calendar.filter((day) => day.metadata.titles.includes('MARTYR'));
 });
 ```
 
-### Group results by criteria
+### Filter by date
 
-romcal offer a convenient way to group data by various criteria. The supported criteria are:
+For convenient usage, romcal also provides additional methods to filter the liturgical days by date criteria.
+
+- `.getDaysBefore`
+- `.getDaysSameOrBefore`
+- `.getLiturgicalDay`
+- `.getDaysSameOrAfter`
+- `.getDaysAfter`
+
+All these methods, takes 1 parameter: `dateOrKey`, that could be either a `Date` object, or the `key` of a liturgical day (romcal will lookup the corresponding `date` from this liturgical day).
+
+This returns a new `RomcalCalendar` array of `LiturgicalDays`. If no elements pass the test, or the provided criteria don't match any liturgical days from the calendar, an empty array will be returned.
+
+#### → Days before a date: `.getDaysBefore(dateOrKey)`
+
+Get all liturgical days that are before the provided criteria.
+
+```javascript
+// Types: getDaysBefore(dateOrKey: Date | string): RomcalCalendar
+
+var daysBeforeToday = (await Romcal.calendarFor()).getDaysBefore(new Date());
+var daysBeforeEaster = (await Romcal.calendarFor()).getDaysBefore('easter');
+```
+
+#### → Days same or before a date `.getDaysSameOrBefore`
+
+Get all liturgical days that match or are before the provided criteria.
+
+```javascript
+// Types: getDaysSameOrBefore(dateOrKey: Date | string): RomcalCalendar
+
+var todayAndDaysBefore = (await Romcal.calendarFor()).getDaysSameOrBefore(new Date());
+var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysSameOrBefore('easter');
+```
+
+#### → A specific day for a date `.getLiturgicalDay`
+
+Get the liturgical day(s) that match the provided criteria.
+
+If the `outputOptionalMemorials` is set to `true`, you might obtain multiple liturgical days for one date:
+the default weekday and the possible optional memorials.
+
+```javascript
+// Types: getLiturgicalDay(dateOrKey: Date | string): RomcalCalendar
+
+var today = (await Romcal.calendarFor()).getLiturgicalDay(new Date());
+var easterSunday = (await Romcal.calendarFor()).getLiturgicalDay('easter');
+```
+
+#### → Days same or after a date `.getDaysSameOrAfter`
+
+Get all liturgical days that match or are after the provided criteria.
+
+```javascript
+// Types: getDaysSameOrBefore(dateOrKey: Date | string): RomcalCalendar
+
+var todayAndDaysAfter = (await Romcal.calendarFor()).getDaysSameOrAfter(new Date());
+var easterAndDaysAfter = (await Romcal.calendarFor()).getDaysSameOrAfter('easter');
+```
+
+#### → Days after a date `.getDaysAfter`
+
+Get all liturgical days that are after the provided criteria.
+
+```javascript
+// Types: getDaysAfter(dateOrKey: Date | string): RomcalCalendar
+
+var todayAndDaysBefore = (await Romcal.calendarFor()).getDaysAfter(new Date());
+var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysAfter('easter');
+```
+
+### Other utility methods on calendar results
+
+#### → `.hasLiturgicalDay(dateOrKey)`
+
+Validate if the date has a matching liturgical day within a romcal calendar.
+
+- `dateOrKey`: a `Date` object, or the `key` of a liturgical day
+- Returns `true` if a matching liturgical day is found within the `RomcalCalendar` array. Or `false` if not found.
+
+```javascript
+// Types: hasLiturgicalDay(dateOrKey: Date | string): boolean
+
+var calendar = await Romcal.calendarFor();
+var hasToday = calendar.hasLiturgicalDay(new Date()); // true
+var hasEaster = calendar.getDaysAfter('easter').hasLiturgicalDay('easter'); // false
+```
+
+#### → `.getDate(dateOrKey)`
+
+Get a validated `Date` within a romcal calendar, or `undefined` if no matching day is found.
+
+- `dateOrKey`: a `Date` object, or the `key` of a liturgical day
+- Returns the `Date` of the found liturgical day within the `RomcalCalendar` array. Or `undefined` if the matching liturgical day is not found.
+
+```javascript
+// Types: getDate(dateOrKey: Date | string): Date | undefined
+
+var calendar = await Romcal.calendarFor({ year: 2020 });
+
+// January 1 of 2019 is not part of the computed calendar for 2020
+var firstJanuaryOf2019 = calendar.getDate(new Date(2019, 0, 1)); // undefined
+
+// These 2 days are part of the computed calendar for 2020
+var firstJanuaryOf2020 = calendar.getDate(new Date(2020, 0, 1)); // "2020-01-01T00:00:00.000Z"
+var easterDate = calendar.getDate('easter'); // "2020-04-12T00:00:00.000Z"
+```
+
+## Group results by criteria
+
+romcal offers a convenient way to group data by various criteria. The supported criteria are:
 
 `days` | `months` | `daysByMonth` | `weeksByMonth` | `sundayCycles` | `weekdayCycles` | `ranks` | `liturgicalSeasons` | `liturgicalColors` | `psalterWeeks`
 
 For example:
+
 ```javascript
 Romcal.calendarFor({ year: 2020, locale: 'en' }).then((calendar) => {
   const byRanks = calendar.groupBy('ranks');
   console.log(byRanks);
 });
 ```
+
 Will produce this dictionary of array:
+
 ```json5
 {
-  WEEKDAY: [...],
-  SUNDAY: [...],
-  MEMORIAL: [...],
-  FEAST: [...],
-  SOLEMNITY: [...],
+  WEEKDAY: [ ... ],
+  SUNDAY: [ ... ],
+  MEMORIAL: [ ... ],
+  FEAST: [ ... ],
+  SOLEMNITY: [ ... ],
   // ...
 }
 ```
@@ -184,6 +347,7 @@ Will produce this dictionary of array:
 For any custom needs, we recommend to use the native `.reduce` method on `Array` to get similar results.
 
 For example below, grouping by `rank`:
+
 ```javascript
 // Using JavaScript and a Promise
 
@@ -210,4 +374,3 @@ const byRanks = calendar.reduce((obj: Dictionary<RomcalCalendar>, item: Liturgic
 
 console.log(byRanks);
 ```
-
