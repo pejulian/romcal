@@ -279,9 +279,18 @@ var todayAndDaysBefore = (await Romcal.calendarFor()).getDaysAfter(new Date());
 var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysAfter('easter');
 ```
 
+#### → Chain filter methods
+
+It is possible to chain multiple filter methods.
+
+```javascript
+var calendar = await Romcal.calendarFor();
+var daysInAdvent = calendar.getDaysSameOrAfter('firstSundayOfAdvent').getDaysBefore('christmas');
+```
+
 ### Other utility methods on calendar results
 
-#### → `.hasLiturgicalDay(dateOrKey)`
+#### → Has a liturgical day `.hasLiturgicalDay(dateOrKey)`
 
 Validate if the date has a matching liturgical day within a romcal calendar.
 
@@ -296,7 +305,7 @@ var hasToday = calendar.hasLiturgicalDay(new Date()); // true
 var hasEaster = calendar.getDaysAfter('easter').hasLiturgicalDay('easter'); // false
 ```
 
-#### → `.getDate(dateOrKey)`
+#### → Get a date within a calendar `.getDate(dateOrKey)`
 
 Get a validated `Date` within a romcal calendar, or `undefined` if no matching day is found.
 
@@ -317,6 +326,8 @@ var easterDate = calendar.getDate('easter'); // "2020-04-12T00:00:00.000Z"
 ```
 
 ## Group results by criteria
+
+#### → Group by a predefined criteria `.groupBy(criteria)`
 
 romcal offers a convenient way to group data by various criteria. The supported criteria are:
 
@@ -344,7 +355,9 @@ Will produce this dictionary of array:
 }
 ```
 
-For any custom needs, we recommend to use the native `.reduce` method on `Array` to get similar results.
+#### → Group by any criteria
+
+For any custom needs, we recommend using the native `.reduce` method on `Array` to get similar results than the `.groupBy` method.
 
 For example below, grouping by `rank`:
 
