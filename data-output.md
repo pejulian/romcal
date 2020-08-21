@@ -6,7 +6,7 @@
 - [Liturgical Seasons](#liturgical-seasons)
 - [Liturgical Periods](#liturgical-periods)
 - [Liturgical Cycles: Years and Weeks](#cycles)
-  - [Celebration Cycle](#celebration-cycle)
+  - [Liturgical Day Cycle](#liturgical-day-cycle)
   - [Sunday Cycle](#sunday-cycle)
   - [Weekday Cycle](#weekday-cycle)
   - [Psalter Weeks](#psalter-weeks)
@@ -196,14 +196,14 @@ Cycle information can be read via the `dates[idx].cycles` property in each date 
 
 ```typescript
 {
-  celebrationCycle: 'TEMPORALE' | 'SANCTORALE';
+  liturgicalDayCycle: 'TEMPORALE' | 'SANCTORALE';
   sundayCycle: 'YEAR_A' | 'YEAR_B' | 'YEAR_C';
   weekdayCycle: 'YEAR_1' | 'YEAR_2';
   psalterWeek: 'WEEK_1' | 'WEEK_2' | 'WEEK_3' | 'WEEK_4';
 }
 ```
 
-### Celebration Cycle
+### Liturgical Day Cycle
 
 All liturgical days are taken from one of these two liturgical cycles:
 
