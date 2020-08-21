@@ -1,7 +1,7 @@
 # Output data and JSON schema
 
 - [JSON Structure](#json-structure)
-- [Celebration Ranks](#celebration-ranks)
+- [Liturgical Day Ranks](#liturgical-day-ranks)
 - [Celebration Titles](#celebration-titles)
 - [Liturgical Seasons](#liturgical-seasons)
 - [Liturgical Periods](#liturgical-periods)
@@ -51,6 +51,7 @@ romcal returns an array of liturgical date objects in the following structure
       easter: '2020-04-12T00:00:00.000Z',
     },
     fromCalendar: 'general',
+    fromExtendedCalendars: [],
     metadata: {
       titles: [],
     },
@@ -59,22 +60,23 @@ romcal returns an array of liturgical date objects in the following structure
 ]
 ```
 
-- `key`: A camel case string which serves as a unique identifier for the celebration.
-- `name`: The [localizable name](localization.md) of the celebration
-- `date`: Date of the celebration as a ISO8601 string
-- `rank`: A key representing the [celebration rank](#celebration-ranks)
-- `prioritized`: A optional boolean that when true, gives the celebration higher priority over another coinciding celebration even though that celebration has a higher-ranking type. This flag should be used with caution.
-- `liturgicalColors`: The [liturgical color(s)](#liturgical-colors) assigned for this celebration (usually follows the liturgical season but may defer if this celebration is a solemnity, feast or memorial)
-- `seasons`: Required: An array of string that identifies the liturgical season this celebration belongs to
-- `seasonNames`: Required: An array of localized string that identifies the liturgical season this celebration belongs to
-- `periods`: Required: An array of string that identifies the liturgical period this celebration belongs to
-- `cycles`: The [liturgical cycle](#cycles) metadata of the celebration
-- `calendar`: The liturgical calendar metadata of the celebration
-- `fromCalendar`: Name of the calendar from which the celebration is defined
-- `metadata`: An object that holds additional information about the liturgical day, especially when it refers to a celebration coming from the Sanctoral or Martyrology.
-  - `titles`: An array of [titles](#titles) that may be assigned to this celebration
+- `key`: A camel case string which serves as a unique identifier for the liturgical day.
+- `name`: The [localizable name](localization.md) of the liturgical day
+- `date`: Date of the liturgical day as a ISO8601 string
+- `rank`: A key representing the [liturgical day rank](#liturgical-day-ranks)
+- `prioritized`: A optional boolean that when true, gives the liturgical day higher priority over another coinciding liturgical day even though that liturgical day has a higher-ranking type. This flag should be used with caution.
+- `liturgicalColors`: The [liturgical color(s)](#liturgical-colors) assigned for this liturgical day (usually follows the liturgical season but may defer if this liturgical day is a solemnity, feast or memorial)
+- `seasons`: Required: An array of string that identifies the liturgical season this liturgical day belongs to
+- `seasonNames`: Required: An array of localized string that identifies the liturgical season this liturgical day belongs to
+- `periods`: Required: An array of string that identifies the liturgical period this liturgical day belongs to
+- `cycles`: The [liturgical cycle](#cycles) metadata of the liturgical day
+- `calendar`: The liturgical calendar metadata of the liturgical day
+- `fromCalendar`: The name of the calendar from which this liturgical day is defined
+- `fromExtendedCalendars`: The names and the object diff of the calendar(s) from which this liturgical day is extended.
+- `metadata`: An object that holds additional information about the liturgical day, especially when it refers to a liturgical day coming from the Sanctoral or Martyrology.
+  - `titles`: An array of [titles](#titles) that may be assigned to this liturgical day
 
-## Celebration Ranks
+## Liturgical Day Ranks
 
 Each date in the liturgical calendar is assigned a rank which are:
 
@@ -88,9 +90,9 @@ Each date in the liturgical calendar is assigned a rank which are:
 8. `COMMEMORATION`
 9. `WEEKDAY`
 
-Where the importance or rank of the celebration is in descending order (solemnity being of highest importance and weekday being the lowest).
+Where the importance or rank of the liturgical day is in descending order (solemnity being of highest importance and weekday being the lowest).
 
-Types play an important role in determining which celebration should take precedence over another when two or more celebrations coincide on the same date. Certain celebration types will also have different liturgical colors applied to them.
+Ranks play an important role in determining which liturgical day should take precedence over another when two or more liturgical days coincide on the same date. Certain liturgical day ranks will also have different liturgical colors applied to them.
 
 The array of types can be imported into consumer apps via:
 
@@ -100,7 +102,7 @@ import { Types } from 'romcal';
 
 ## Celebration Titles
 
-On top of having a celebration type, liturgical dates may also have one or more titles of significance assigned to it.
+On top of having a liturgical day rank, days may also have one or more titles of significance assigned to it.
 
 For example, the feast of [Saint Catherine of Siena](https://en.wikipedia.org/wiki/Catherine_of_Siena) is assigned the titles `PATRON_OF_EUROPE` (for national calendars of countries in Europe only) and `DOCTOR_OF_THE_CHURCH` due to those titles being conferred on her by the Church.
 
@@ -203,18 +205,18 @@ Cycle information can be read via the `dates[idx].cycles` property in each date 
 
 ### Celebration Cycle
 
-All celebrations are taken from one of these two liturgical cycles:
+All liturgical days are taken from one of these two liturgical cycles:
 
 - `Temporale` denoted by the key `TEMPORALE`
 - `Sanctorale` denoted by the key `SANCTORALE`
 
 The [**Temporale**](https://en.wikipedia.org/wiki/Temporale) (or the **proper of time**, or the **proper of seasons**)
-consists of the [movable feasts](https://en.wikipedia.org/wiki/Moveable_feast) and celebrations, most of them keyed to Easter (which falls on a different Sunday every year),
-including Sundays and Weekdays and celebrations like Ascension, Pentecost, and so on.
+consists of the [movable feasts](https://en.wikipedia.org/wiki/Moveable_feast) and liturgical days, most of them keyed to Easter (which falls on a different Sunday every year),
+including Sundays and Weekdays and liturgical days like Ascension, Pentecost, and so on.
 It's a cycle that traces the earthly life and the mystery of the Christ, and is deeply related to the liturgical seasons' continuity.
 
-The [**sanctorale**](https://en.wikipedia.org/wiki/Sanctorale) (or the **proper of saints**) consists of the fixed celebrations (on the civil year), celebrated on the very same date each year (no matter what the day of the week).
-It mainly contains the celebrations of the saints, and some other celebrations for the mystery of the church, including Christmas.
+The [**sanctorale**](https://en.wikipedia.org/wiki/Sanctorale) (or the **proper of saints**) consists of the fixed liturgical days (on the civil year), celebrated on the very same date each year (no matter what the day of the week).
+It mainly contains the celebrations of the saints, and some other liturgical days for the mystery of the church, including Christmas.
 
 ### Sunday Cycle
 
@@ -281,7 +283,7 @@ romcal defines various liturgical colors which are:
 - `ROSE`
 - `WHITE`
 
-More information on how these colors are used for celebration can be found [here](https://en.wikipedia.org/wiki/Liturgical_colours#Roman_Catholic_Church)
+More information on how these colors are used for liturgical day can be found [here](https://en.wikipedia.org/wiki/Liturgical_colours#Roman_Catholic_Church)
 
 Liturgical colors can be read via the `dates[idx].data.meta.liturgicalColor` property in each date element in the array that `calendarFor` returns.
 

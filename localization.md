@@ -1,8 +1,8 @@
 # Localization
 
-## Localizing celebration names
+## Localizing liturgical day names
 
-Celebration names in romcal can be localized to any language that is already supported by [DayJS i18n](https://day.js.org/docs/en/i18n/i18n).
+Liturgical day names in romcal can be localized to any language that is already supported by [DayJS i18n](https://day.js.org/docs/en/i18n/i18n).
 
 Locales are stored as `.ts` files in the `src/locales` directory.
 
@@ -28,6 +28,7 @@ The structure of the locale file is typically like so:
   holy_week: {},
   eastertide: {},
   liturgical_colors: {},
+  ranks: {},
   celebrations: {},
   sanctoral: {},
 }

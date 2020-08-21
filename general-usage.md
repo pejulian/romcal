@@ -127,7 +127,7 @@ So if you aim to fetch a liturgical calendar for `2030`, you will end up with li
 
 ### `country`
 
-Include celebration dates requested by the Episcopal Council(s) of the given country that were approved by the Holy See.
+Include liturgical days requested by the Episcopal Council(s) of the given country that were approved by the Holy See.
 If not specified, no National dates are included in the calendar output.
 If an unrecognized country is specified, romcal will silently ignore the property and will not return any National dates in the calendar output.
 Country names should be specified in camel case (i.e. `unitedStates`, `czechRepublic`).
@@ -135,8 +135,8 @@ Country names should be specified in camel case (i.e. `unitedStates`, `czechRepu
 ### `locale`
 
 Defaults to `en` (English) if not set.
-romcal celebration names can be localized to different languages.
-If a given locale does not have the localized name for a celebration in that language, romcal will fall back to use the celebration name in the base language (if a region was specified in the locale), and finally in English.
+romcal liturgical day names can be localized to different languages.
+If a given locale does not have the localized name for a liturgical day in that language, romcal will fall back to use the liturgical day name in the base language (if a region was specified in the locale), and finally in English.
 More details on locales management in the :books: [localization page](./localization.md).
 
 ### `epiphanyOnSunday`
@@ -171,8 +171,8 @@ Or if provided, defaults to the setting defined in the particular calendar you a
 
 ### `outputOptionalMemorials`
 
-- `true`: in the romcal output, also includes optional celebrations and commemorations that could be celebrated on each day (in addition to the weekday).
-- `false`: romcal output strictly one celebration per day, according to the calendar definitions and the missal rules. So you will get exactly 365 celebrations within a Gregorian scope (366 in leap years).
+- `true`: in the romcal output, also includes optional liturgical days and commemorations that could be celebrated on each day (in addition to the weekday).
+- `false`: romcal output strictly one liturgical day per date, according to the calendar definitions and the missal rules. So you will get exactly 365 liturgical days within a Gregorian scope (366 in leap years).
 
 Defaults to `false`.
 
