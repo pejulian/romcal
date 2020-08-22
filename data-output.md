@@ -25,6 +25,7 @@ romcal returns an array of liturgical date objects in the following structure
     date: '2020-01-01T00:00:00.000Z',
     rank: 'SOLEMNITY',
     rankName: 'Solemnity',
+    isHolyDayOfObligation: true,
     prioritized: false,
     liturgicalColors: ['WHITE'],
     seasons: ['CHRISTMASTIDE'],
@@ -64,6 +65,7 @@ romcal returns an array of liturgical date objects in the following structure
 - `name`: The [localizable name](localization.md) of the liturgical day
 - `date`: Date of the liturgical day as a ISO8601 string
 - `rank`: A key representing the [liturgical day rank](#liturgical-day-ranks)
+- `isHolyDayOfObligation`: If the current liturgical day is a [Holy Day of Obligation](https://en.wikipedia.org/wiki/Holy_day_of_obligation). Holy days of obligation are days on which the faithful are expected to attend Mass, and engage in rest from work and recreation.
 - `prioritized`: A optional boolean that when true, gives the liturgical day higher priority over another coinciding liturgical day even though that liturgical day has a higher-ranking type. This flag should be used with caution.
 - `liturgicalColors`: The [liturgical color(s)](#liturgical-colors) assigned for this liturgical day (usually follows the liturgical season but may defer if this liturgical day is a solemnity, feast or memorial)
 - `seasons`: Required: An array of string that identifies the liturgical season this liturgical day belongs to
