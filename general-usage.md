@@ -26,6 +26,8 @@ Romcal.calendarFor({
   corpusChristiOnSunday: true | false,
   ascensionOnSunday: true | false,
   outputOptionalMemorials: true | false,
+  verbose: true | false,
+  prettyPrint: true | false,
 });
 ```
 
@@ -70,6 +72,8 @@ Romcal.liturgicalDayFor(date, {
   corpusChristiOnSunday: true | false,
   ascensionOnSunday: true | false,
   outputOptionalMemorials: true | false,
+  verbose: true | false,
+  prettyPrint: true | false,
 });
 ```
 
@@ -173,6 +177,19 @@ Or if provided, defaults to the setting defined in the particular calendar you a
 
 - `true`: in the romcal output, also includes optional liturgical days and commemorations that could be celebrated on each day (in addition to the weekday).
 - `false`: romcal output strictly one liturgical day per date, according to the calendar definitions and the missal rules. So you will get exactly 365 liturgical days within a Gregorian scope (366 in leap years).
+
+Defaults to `false`.
+
+### `verbose`
+
+Enable logging output from romcal.
+Logs are newline delimited JSON (NDJSON), a convenient format for production usage and long-term storage.
+
+Defaults to `false`.
+
+### `prettyPrint`
+
+Prettify logs printed in the console, for a better experience in development environnements (instead of output them in NDJSON format).
 
 Defaults to `false`.
 
