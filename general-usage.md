@@ -114,7 +114,7 @@ An `integer` that defines the calendar year to compute.
 Note: if the output `scope` is defined as a `liturgical` calendar, the `year` property refer to the main period of the liturgical calendar.
 See just below for more details.
 
-Defaults to the current system year if not specified.
+Default: current system year.
 
 ### `scope`
 
@@ -123,7 +123,7 @@ Defines the scope of calendar output. The scope can be specified either as:
 - `gregorian`: i.e. the [civil year](https://en.wikipedia.org/wiki/Civil_calendar) for the majority of countries - `January 1` to `December 31`.
 - `liturgical`: the liturgical year - `1st Sunday of Advent` to the `last Saturday or Ordinary Time` (i.e. the last day before the following `1st Sunday of Advent` of the next liturgical year).
 
-Defaults to `gregorian`.
+Default: `gregorian`.
 
 Note that a `liturgical` year is always straddling two `gregorian` years.
 In this situation, the `year` property always refers to the main part of the liturgical year.
@@ -136,12 +136,15 @@ If not specified, no National dates are included in the calendar output.
 If an unrecognized country is specified, romcal will silently ignore the property and will not return any National dates in the calendar output.
 Country names should be specified in camel case (i.e. `unitedStates`, `czechRepublic`).
 
+Default: `general`.
+
 ### `locale`
 
-Defaults to `en` (English) if not set.
 romcal liturgical day names can be localized to different languages.
 If a given locale does not have the localized name for a liturgical day in that language, romcal will fall back to use the liturgical day name in the base language (if a region was specified in the locale), and finally in English.
 More details on locales management in the :books: [localization page](./localization.md).
+
+Default: `en`.
 
 ### `epiphanyOnSunday`
 
@@ -150,48 +153,54 @@ A `boolean` which define:
 - `true`: Epiphany is celebrated a Sunday between the 2nd - 8th January based on the missal rules.
 - `false`: Epiphany is traditionally celebrated on January 6th.
 
-Defaults to `true` (Epiphany is always celebrated a Sunday).
-Or if provided, defaults to the setting defined in the particular calendar you are fetching through romcal.
+Default:
+
+- `true` (Epiphany is always celebrated a Sunday).
+- Or if provided, defaults to the setting defined in the particular calendar you are fetching through romcal.
 
 ### `corpusChristiOnSunday`
 
 A `boolean` which define:
 
 - `true`: Corpus Christi is celebrated on Sunday (1 week before Pentecost)
-- `false`: Corpus Christi is traditionally celebrated the Thursday of the 7th week of Easter (60 days after Easter).
+- `false`: Corpus Christi is traditionally celebrated the Thursday after Trinity Sunday (60 days after Easter).
 
-Defaults to `true` (Corpus Christi is celebrated on Sunday by default).
-Or if provided, defaults to the setting defined in the particular calendar you are fetching through romcal.
+Default:
+
+- `true` (Corpus Christi is celebrated on Sunday by default).
+- Or if provided, defaults to the setting defined in the particular calendar you are fetching through romcal.
 
 ### `ascensionOnSunday`
 
 A `boolean` which define:
 
 - `true`: Ascension replace the 7th Sunday of Easter (42 days after Easter).
-- `false`: Ascension is traditionally celebrated on Thursday, 39 days after Easter.
+- `false`: Ascension is traditionally celebrated on Thursday, the 40th day of Easter.
 
-Defaults to `false` (Ascension is celebrated on Thursday by default).
-Or if provided, defaults to the setting defined in the particular calendar you are fetching through romcal.
+Default:
+
+- `false` (Ascension is celebrated on Thursday by default).
+- Or if provided, defaults to the setting defined in the particular calendar you are fetching through romcal.
 
 ### `outputOptionalMemorials`
 
 - `true`: in the romcal output, also includes optional liturgical days and commemorations that could be celebrated on each day (in addition to the weekday).
 - `false`: romcal output strictly one liturgical day per date, according to the calendar definitions and the missal rules. So you will get exactly 365 liturgical days within a Gregorian scope (366 in leap years).
 
-Defaults to `false`.
+Default: `false`.
 
 ### `verbose`
 
 Enable logging output from romcal.
 Logs are newline delimited JSON (NDJSON), a convenient format for production usage and long-term storage.
 
-Defaults to `false`.
+Default: `false`.
 
 ### `prettyPrint`
 
 Prettify logs printed in the console, for a better experience in development environnements (instead of output them in NDJSON format).
 
-Defaults to `false`.
+Default: `false`.
 
 ## Refines and filter results by criteria
 
