@@ -144,6 +144,12 @@ The liturgical calendar is divided into various seasons that occur throughout th
 
 romcal assigns seasons to the dates it generates to indicate the season to which the range of dates generated belong.
 
+For each day, the keys of the seasons are outputted in an array, because the season change can occur during the day (so a day can be within 2 seasons).
+This is the case on Holy Thursday and Easter Sunday:
+- The season of Lent run up to but excluding the evening Mass of the Lord’s Supper (on Holy Thursday)
+- The Paschal Triduum begins with the evening Mass of the Lord’s Supper, and closes with Vespers of the Sunday of the Resurrection (Easter Sunday).
+- The Easter Time start from the Sunday of the Resurrection (Easter Sunday).
+
 The LITURGICAL_SEASONS object can be imported into consumer apps via:
 
 _ES6_
