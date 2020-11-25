@@ -61,14 +61,14 @@ npm run build
 
 ## Run
 
-Instead of building every time the codebase to test your code, you might be interested to run directly the TypeScript codebase and test it in the Node.js ecosystem.
+Instead of building every time the codebase to test or debug your code, you might be interested to run directly the TypeScript codebase and test it in the Node.js ecosystem.
 
 ```javascript
-// sample-test-file.ts in the parent directory of romcal (outside the codebase)
-import romcal from './romcal/src';
+// local-test-file.ts in the root directory of romcal
+import Romcal from './src';
 
 (async () => {
-  const dates = await romcal.calendarFor({
+  const dates = await Romcal.calendarFor({
     country: 'france',
     year: 2020,
     locale: 'fr',
@@ -78,11 +78,13 @@ import romcal from './romcal/src';
 })();
 ```
 
-You can call your `sample-test-file.ts` directly from the bash (e.g. in the romcal directory):
+You can call your `local-test-file.ts` directly from the bash (e.g. in the romcal directory):
 
 ```bash
-node -r ts-node/register -r tsconfig-paths/register ../sample-test-file.ts
+node -r ts-node/register -r tsconfig-paths/register ./sample-test-file.ts
 ```
+
+Note: all file names starting with `local-` are not included in the romcal codebase.
 
 ## Test
 
