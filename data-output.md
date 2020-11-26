@@ -181,7 +181,7 @@ Other periods (non-official), some of which are from the tradition of the church
 - `CHRISTMAS_TO_PRESENTATION_OF_THE_LORD`
 - `PRESENTATION_OF_THE_LORD_TO_HOLY_THURSDAY`
 - `EARLY_ORDINARY_TIME`
-- `LATER_ORDINARY_TIME`
+- `LATE_ORDINARY_TIME`
 
 The LITURGICAL_PERIODS object can be imported into consumer apps via:
 
