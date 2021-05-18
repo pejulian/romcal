@@ -356,7 +356,7 @@ var easterDate = calendar.getDate('easter_sunday'); // "2020-04-12T00:00:00.000Z
 
 romcal offers a convenient way to group data by various criteria. The supported criteria are:
 
-`days` | `months` | `daysByMonth` | `weeksByMonth` | `sundayCycles` | `weekdayCycles` | `ranks` | `liturgicalSeasons` | `liturgicalColors` | `psalterWeeks`
+`dates` | `days` | `months` | `daysByMonth` | `weeksByMonth` | `sundayCycles` | `weekdayCycles` | `ranks` | `liturgicalSeasons` | `liturgicalColors` | `psalterWeeks`
 
 For example:
 
