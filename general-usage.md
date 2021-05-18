@@ -25,7 +25,7 @@ Romcal.calendarFor({
   epiphanyOnSunday: true | false,
   corpusChristiOnSunday: true | false,
   ascensionOnSunday: true | false,
-  outputOptionalMemorials: true | false,
+  strictMode: true | false,
   verbose: true | false,
   prettyPrint: true | false,
 });
@@ -71,14 +71,14 @@ Romcal.liturgicalDayFor(date, {
   epiphanyOnSunday: true | false,
   corpusChristiOnSunday: true | false,
   ascensionOnSunday: true | false,
-  outputOptionalMemorials: true | false,
+  strictMode: true | false,
   verbose: true | false,
   prettyPrint: true | false,
 });
 ```
 
-This returns an `Array` containing the `LiturgicalDay` object, that match the provided `date` parameter.
-In case the `outputOptionalMemorials` option is set to `true`, romcal will also output optional memorials that could be available the same date.
+This returns an `Array` containing first the relevant `LiturgicalDay` object, followed by optional memorials or commemorations objects that also match the provided `date` parameter.
+If the `strictMode` option is set to `true`, romcal strictly output the more relevant `LiturgicalDay` object, so only one object per day.
 
 e.g. to obtain today's liturgical day:
 
@@ -103,7 +103,7 @@ Note that under the hood, romcal always compute data for a whole liturgical year
 This is necessary to ensure that the right liturgical day is computed for every date:
 each liturgical day is depending on the proper of seasons or the sanctorale, and might be defined according to each other (including all [moveable feast](https://en.wikipedia.org/wiki/Moveable_feast)).
 
-:warning: For performance reasons, if you need to retrieve data from different dates in the same year, it will be highly recommended to compute once a calendar (using the `.calendarFor` method), and then use the filtering methods to get all the desired dates.
+:warning: For performance reasons, if you need to retrieve data from different dates in the same year, it will be highly recommended computing once a calendar (using the `.calendarFor` method), and then use the filtering methods to get all the desired dates.
 
 ## Configuration options
 
@@ -182,10 +182,10 @@ Default:
 - `false` (Ascension is celebrated on Thursday by default).
 - Or if provided, defaults to the setting defined in the particular calendar you are fetching through romcal.
 
-### `outputOptionalMemorials`
+### `strictMode`
 
-- `true`: in the romcal output, also includes optional liturgical days and commemorations that could be celebrated on each day (in addition to the weekday).
-- `false`: romcal output strictly one liturgical day per date, according to the calendar definitions and the missal rules. So you will get exactly 365 liturgical days within a Gregorian scope (366 in leap years).
+- `true`: strictly output one liturgical day per date, according to the calendar definitions and the missal rules. So you will get exactly 365 liturgical days within a Gregorian scope (366 in leap years).
+- `false`: also outputs optional liturgical days and commemorations that could be celebrated on each day (in addition to the weekday). The more relevant liturgical day object is output first in the array.
 
 Default: `false`.
 
@@ -273,8 +273,7 @@ var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysSameOrBefore('east
 
 Get the liturgical day(s) that match the provided criteria.
 
-If the `outputOptionalMemorials` is set to `true`, you might obtain multiple liturgical days for one date:
-the default weekday and the possible optional memorials.
+If the `strictMode` is set to `true`, you will obtain strictly on item per day. Optional memorials or commemorations are not outputted.
 
 ```javascript
 // Types: getLiturgicalDay(dateOrKey: Date | string): RomcalCalendar
