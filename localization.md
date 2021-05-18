@@ -30,12 +30,12 @@ The structure of the locale file is typically like so:
   liturgical_colors: {},
   ranks: {},
   celebrations: {},
-  sanctoral: {},
+  sanctorale: {},
 }
 ```
 
 The first 7 objects define locale keys used by `src/lib/Seasons.ts` when generating liturgical dates.
 
-The `celebrations` and `sanctoral` objects will hold localization for `src/lib/Celebrations.ts`, `src/calendars/general.ts` and `src/calendars/<country>.ts` respectively where the celebration `key` is used as an identifier for localization purposes.
+The `celebrations` and `sanctorale` objects will hold localization for `src/lib/Celebrations.ts`, `src/calendars/general.ts` and `src/calendars/<country>.ts` respectively where the celebration `key` is used as an identifier for localization purposes.
 
 See the end of these files to see the function that localizes the dates according to their keys.
