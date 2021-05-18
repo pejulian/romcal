@@ -48,7 +48,7 @@ In the `england` calendar, we will only define a new entry with its `key` and th
 
 ```json5
 {
-  key: 'saintGregoryTheGreatPopeAndDoctor',
+  key: 'gregory_i_the_great_pope',
   extend: true,
   rank: Ranks.FEAST,
 }

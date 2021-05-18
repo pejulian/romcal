@@ -255,7 +255,7 @@ Get all liturgical days that are before the provided criteria.
 // Types: getDaysBefore(dateOrKey: Date | string): RomcalCalendar
 
 var daysBeforeToday = (await Romcal.calendarFor()).getDaysBefore(new Date());
-var daysBeforeEaster = (await Romcal.calendarFor()).getDaysBefore('easter');
+var daysBeforeEaster = (await Romcal.calendarFor()).getDaysBefore('easter_sunday');
 ```
 
 #### → Days same or before a date `.getDaysSameOrBefore`
@@ -266,7 +266,7 @@ Get all liturgical days that match or are before the provided criteria.
 // Types: getDaysSameOrBefore(dateOrKey: Date | string): RomcalCalendar
 
 var todayAndDaysBefore = (await Romcal.calendarFor()).getDaysSameOrBefore(new Date());
-var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysSameOrBefore('easter');
+var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysSameOrBefore('easter_sunday');
 ```
 
 #### → A specific day for a date `.getLiturgicalDay`
@@ -280,7 +280,7 @@ the default weekday and the possible optional memorials.
 // Types: getLiturgicalDay(dateOrKey: Date | string): RomcalCalendar
 
 var today = (await Romcal.calendarFor()).getLiturgicalDay(new Date());
-var easterSunday = (await Romcal.calendarFor()).getLiturgicalDay('easter');
+var easterSunday = (await Romcal.calendarFor()).getLiturgicalDay('easter_sunday');
 ```
 
 #### → Days same or after a date `.getDaysSameOrAfter`
@@ -291,7 +291,7 @@ Get all liturgical days that match or are after the provided criteria.
 // Types: getDaysSameOrBefore(dateOrKey: Date | string): RomcalCalendar
 
 var todayAndDaysAfter = (await Romcal.calendarFor()).getDaysSameOrAfter(new Date());
-var easterAndDaysAfter = (await Romcal.calendarFor()).getDaysSameOrAfter('easter');
+var easterAndDaysAfter = (await Romcal.calendarFor()).getDaysSameOrAfter('easter_sunday');
 ```
 
 #### → Days after a date `.getDaysAfter`
@@ -302,7 +302,7 @@ Get all liturgical days that are after the provided criteria.
 // Types: getDaysAfter(dateOrKey: Date | string): RomcalCalendar
 
 var todayAndDaysBefore = (await Romcal.calendarFor()).getDaysAfter(new Date());
-var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysAfter('easter');
+var easterAndDaysBefore = (await Romcal.calendarFor()).getDaysAfter('easter_sunday');
 ```
 
 #### → Chain filter methods
@@ -311,7 +311,7 @@ It is possible to chain multiple filter methods.
 
 ```javascript
 var calendar = await Romcal.calendarFor();
-var daysInAdvent = calendar.getDaysSameOrAfter('firstSundayOfAdvent').getDaysBefore('christmas');
+var daysInAdvent = calendar.getDaysSameOrAfter('advent_1_sunday').getDaysBefore('christmas');
 ```
 
 ### Other utility methods on calendar results
@@ -328,7 +328,7 @@ Validate if the date has a matching liturgical day within a romcal calendar.
 
 var calendar = await Romcal.calendarFor();
 var hasToday = calendar.hasLiturgicalDay(new Date()); // true
-var hasEaster = calendar.getDaysAfter('easter').hasLiturgicalDay('easter'); // false
+var hasEaster = calendar.getDaysAfter('easter_sunday').hasLiturgicalDay('easter_sunday'); // false
 ```
 
 #### → Get a date within a calendar `.getDate(dateOrKey)`
@@ -348,7 +348,7 @@ var firstJanuaryOf2019 = calendar.getDate(new Date(2019, 0, 1)); // undefined
 
 // These 2 days are part of the computed calendar for 2020
 var firstJanuaryOf2020 = calendar.getDate(new Date(2020, 0, 1)); // "2020-01-01T00:00:00.000Z"
-var easterDate = calendar.getDate('easter'); // "2020-04-12T00:00:00.000Z"
+var easterDate = calendar.getDate('easter_sunday'); // "2020-04-12T00:00:00.000Z"
 ```
 
 ## Group results by criteria

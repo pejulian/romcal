@@ -20,7 +20,7 @@ romcal returns an array of liturgical date objects in the following structure
 ```json5
 [
   {
-    key: 'maryMotherOfGod',
+    key: 'mary_mother_of_god',
     name: 'Mary, Mother of God',
     date: '2020-01-01T00:00:00.000Z',
     rank: 'SOLEMNITY',
